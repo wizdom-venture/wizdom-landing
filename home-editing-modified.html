@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WISDOM | Where Learning Feels Less Like a Task and More Like Discovery</title>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #00f5ff;
+            --secondary: #7c3aed;
+            --accent: #ec4899;
+            --dark: #0a0e27;
+            --darker: #050816;
+            --text-light: #e2e8f0;
+            --glow: rgba(0, 245, 255, 0.5);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--darker);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: linear-gradient(125deg, #050816 0%, #0a0e27 50%, #1a1042 100%);
+        }
+        
+        .bg-animation::before {
+            content: ''; position: absolute; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; padding: 20px 0; z-index: 1000;
+            background: rgba(5, 8, 22, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+
+        .logo {
+            font-size: 2rem; font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            text-decoration: none; letter-spacing: -1px; filter: drop-shadow(0 0 20px var(--glow));
+        }
+
+        .nav-cta {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none; border-radius: 50px; color: white;
+            font-weight: 700; text-decoration: none; font-size: 0.95rem;
+            transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0, 245, 255, 0.3);
+        }
+
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0, 245, 255, 0.5); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative; overflow: hidden; padding-top: 80px;
+            
+            /* ADDED: Background Image for the Hero Section */
+            /* Note: Since no image file was provided, I've used a placeholder. 
+               Please replace 'your-image.jpg' with the actual path to your image file.
+               I've also added a dark overlay to ensure text readability. */
+            background-image: linear-gradient(rgba(5, 8, 22, 0.7), rgba(5, 8, 22, 0.7)), url('unnamed.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero::before {
+            content: ''; position: absolute; width: 500px; height: 500px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.2; animation: pulse 4s ease-in-out infinite;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); filter: blur(100px);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+        }
+
+        .hero-brand {
+            font-size: 5.5rem; font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, white 50%, var(--accent) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 20px; line-height: 1.1; letter-spacing: -2px;
+            text-shadow: 0 0 80px var(--glow);
+            animation: fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem; font-weight: 700; color: var(--text-light);
+            margin-bottom: 30px;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+        }
+
+        .hero p {
+            font-size: 1.4rem; margin-bottom: 50px; color: var(--text-light); opacity: 0.9;
+            max-width: 800px; margin: 0 auto 50px;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+        }
+
+        .waitlist-form {
+            display: flex; gap: 15px; justify-content: center; max-width: 550px; margin: 0 auto;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+        }
+
+        .waitlist-input {
+            flex: 1; padding: 18px 25px; border-radius: 50px; 
+            border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05);
+            color: white; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+
+        .waitlist-input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 245, 255, 0.2); }
+
+        .btn-primary {
+            padding: 18px 40px; border-radius: 50px; border: none; cursor: pointer;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.3); transition: 0.4s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(0, 245, 255, 0.5);
+        }
+
+        /* Generic Section */
+        section { padding: 150px 20px; text-align: center; position: relative; }
+
+        .section-title {
+            font-size: 3.5rem; font-weight: 800; margin-bottom: 60px;
+            background: linear-gradient(135deg, white, var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        /* Problem */
+        .problem p {
+            font-size: 1.6rem; max-width: 900px; margin: 0 auto 30px; opacity: 0.85; line-height: 1.8;
+        }
+        .problem p:last-child {
+            font-weight: 700; font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), white);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        /* Grid */
+        .grid-3 {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
+            text-align: left;
+        }
+
+        .card {
+            padding: 50px 35px; border-radius: 20px; position: relative; overflow: hidden;
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s;
+        }
+
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0); transition: transform 0.5s;
+        }
+
+        .card:hover::before { transform: scaleX(1); }
+        .card:hover {
+            transform: translateY(-10px); background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.7rem; margin-bottom: 20px; color: white; font-weight: 700;
+        }
+
+        .card p { color: var(--text-light); opacity: 0.85; font-size: 1.1rem; }
+
+        /* How It Works Numbers */
+        .step-num {
+            font-size: 5rem; font-weight: 900; opacity: 0.1; position: absolute; top: 0; right: 20px;
+            background: linear-gradient(180deg, white, transparent);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation"></div>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">WISDOM</a>
+            <a href="#join" class="nav-cta">Join Waitlist</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-brand">WISDOM</div>
+            <h1>Where learning feels less like a task<br>and more like a discovery.</h1>
+            <p>A creative platform for professors to build interactive games and simulations. Turn your curriculum into an experience students never want to leave.</p>
+            
+            <form class="waitlist-form" id="join">
+                <input type="email" class="waitlist-input" placeholder="Enter your email to join the waitlist" required>
+                <button type="submit" class="btn-primary">Join Waitlist</button>
+            </form>
+        </div>
+    </header>
+
+    <section class="problem">
+        <div class="container">
+            <h2 class="section-title">The Engagement Gap</h2>
+            <p>It's getting harder to compete with the digital world for a student's attention. Static lectures often lead to "passive learning," where information goes in one ear and out the other.</p>
+            <p>You have the knowledge; you just need a better way to deliver it.</p>
+        </div>
+    </section>
+
+    <section class="solution">
+        <div class="container">
+            <h2 class="section-title">Meet WISDOM</h2>
+            <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto 60px; opacity: 0.9;">WISDOM is a creative suite for educators. You don't need to be a game developer or a coder. We provide the "building blocks" for you to create:</p>
+            
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Mini-Games</h3>
+                    <p>Quick challenges to test knowledge in real-time.</p>
+                </div>
+                <div class="card">
+                    <h3>Simulations</h3>
+                    <p>Virtual "sandboxes" where students can test theories and see consequences.</p>
+                </div>
+                <div class="card">
+                    <h3>Digital Assets</h3>
+                    <p>Interactive diagrams and clickable stories that turn a syllabus into a journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="impact">
+        <div class="container">
+            <h2 class="section-title">Better Teaching, Better Retention</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Deep Focus</h3>
+                    <p>When students are "playing" through a concept, they aren't checking their phones. They are engaged in the discovery.</p>
+                </div>
+                <div class="card">
+                    <h3>Memory That Sticks</h3>
+                    <p>We learn by doing. A simulation of a stock market crash or a biological cell is 10x more memorable than a paragraph describing it.</p>
+                </div>
+                <div class="card">
+                    <h3>Real-Time Feedback</h3>
+                    <p>See exactly where your students are getting stuck within the game, so you can help them where they need it most.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how">
+        <div class="container">
+            <h2 class="section-title">From Idea to Interactive in Minutes</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <span class="step-num">1</span>
+                    <h3>Pick a Logic</h3>
+                    <p>Choose a "game type" (like a mystery, a strategy map, or a lab).</p>
+                </div>
+                <div class="card">
+                    <span class="step-num">2</span>
+                    <h3>Add Your Facts</h3>
+                    <p>Drop in your specific course info and questions.</p>
+                </div>
+                <div class="card">
+                    <span class="step-num">3</span>
+                    <h3>Launch</h3>
+                    <p>Send a link to your class. It works on any laptop or phone.</p>
+                </div>
+            </div>
+        </section>
+
+    <section class="closing">
+        <div class="container">
+            <h2 class="section-title" style="margin-bottom: 30px;">Be Part of the Future</h2>
+            <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto 50px; opacity: 0.9;">We are currently building the tools that will change how the next generation learns. Join our early-access list to be the first to try WISDOM when we launch.</p>
+            <button class="btn-primary" style="padding: 22px 60px; font-size: 1.2rem;">Join the Founding Educators List</button>
+        </div>
+    </section>
+
+    <footer style="padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.6;">
+        <p>&copy; 2026 WISDOM. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .problem p, .section-title, .hero-brand').forEach(el => {
+            // Apply initial state only if not already animated by CSS keyframes
+            if (!el.classList.contains('hero-brand')) {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            }
+        });
+
+        // 3D Tilt Effect
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 25;
+            const y = (window.innerHeight / 2 - e.pageY) / 25;
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.transform = `perspective(1000px) rotateY(${x * 0.05}deg) rotateX(${y * 0.05}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
