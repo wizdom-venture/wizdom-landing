@@ -3,350 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WISDOM | Where Learning Feels Less Like a Task and More Like Discovery</title>
-    
+    <title>WIZDOM | Creative Suite for Educators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --primary: #00f5ff;
-            --secondary: #7c3aed;
-            --accent: #ec4899;
-            --dark: #0a0e27;
-            --darker: #050816;
-            --text-light: #e2e8f0;
-            --glow: rgba(0, 245, 255, 0.5);
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--darker);
-            color: var(--text-light);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: linear-gradient(125deg, #050816 0%, #0a0e27 50%, #1a1042 100%);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
         
-        .bg-animation::before {
-            content: ''; position: absolute; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        .container {
-            max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; padding: 20px 0; z-index: 1000;
-            background: rgba(5, 8, 22, 0.8); backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
-
-        .logo {
-            font-size: 2rem; font-weight: 900;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            text-decoration: none; letter-spacing: -1px; filter: drop-shadow(0 0 20px var(--glow));
-        }
-
-        .nav-cta {
-            padding: 12px 28px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none; border-radius: 50px; color: white;
-            font-weight: 700; text-decoration: none; font-size: 0.95rem;
-            transition: all 0.3s ease; box-shadow: 0 5px 20px rgba(0, 245, 255, 0.3);
-        }
-
-        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0, 245, 255, 0.5); }
-
-        /* Hero */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            text-align: center; position: relative; overflow: hidden; padding-top: 80px;
-            
-            /* ADDED: Background Image for the Hero Section */
-            /* Note: Since no image file was provided, I've used a placeholder. 
-               Please replace 'your-image.jpg' with the actual path to your image file.
-               I've also added a dark overlay to ensure text readability. */
-            background-image: linear-gradient(rgba(5, 8, 22, 0.7), rgba(5, 8, 22, 0.7)), url('unnamed.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .hero::before {
-            content: ''; position: absolute; width: 500px; height: 500px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            opacity: 0.2; animation: pulse 4s ease-in-out infinite;
-            top: 50%; left: 50%; transform: translate(-50%, -50%); filter: blur(100px);
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
-        }
-
-        .hero-brand {
-            font-size: 5.5rem; font-weight: 900;
-            background: linear-gradient(135deg, var(--primary) 0%, white 50%, var(--accent) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-            margin-bottom: 20px; line-height: 1.1; letter-spacing: -2px;
-            text-shadow: 0 0 80px var(--glow);
-            animation: fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero h1 {
-            font-size: 2.5rem; font-weight: 700; color: var(--text-light);
-            margin-bottom: 30px;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
-        }
-
-        .hero p {
-            font-size: 1.4rem; margin-bottom: 50px; color: var(--text-light); opacity: 0.9;
-            max-width: 800px; margin: 0 auto 50px;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
-        }
-
-        .waitlist-form {
-            display: flex; gap: 15px; justify-content: center; max-width: 550px; margin: 0 auto;
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
-        }
-
-        .waitlist-input {
-            flex: 1; padding: 18px 25px; border-radius: 50px; 
-            border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05);
-            color: white; font-size: 1rem; outline: none; transition: 0.3s;
-        }
-
-        .waitlist-input:focus { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 245, 255, 0.2); }
-
-        .btn-primary {
-            padding: 18px 40px; border-radius: 50px; border: none; cursor: pointer;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.3); transition: 0.4s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 50px rgba(0, 245, 255, 0.5);
-        }
-
-        /* Generic Section */
-        section { padding: 150px 20px; text-align: center; position: relative; }
-
-        .section-title {
-            font-size: 3.5rem; font-weight: 800; margin-bottom: 60px;
-            background: linear-gradient(135deg, white, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-
-        /* Problem */
-        .problem p {
-            font-size: 1.6rem; max-width: 900px; margin: 0 auto 30px; opacity: 0.85; line-height: 1.8;
-        }
-        .problem p:last-child {
-            font-weight: 700; font-size: 1.8rem;
-            background: linear-gradient(135deg, var(--primary), white);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        }
-
-        /* Grid */
-        .grid-3 {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px;
-            text-align: left;
-        }
-
-        .card {
-            padding: 50px 35px; border-radius: 20px; position: relative; overflow: hidden;
-            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px);
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.5s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0); transition: transform 0.5s;
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.5);
         }
 
-        .card:hover::before { transform: scaleX(1); }
-        .card:hover {
-            transform: translateY(-10px); background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.2);
+        .gradient-text {
+            background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .card h3 {
-            font-size: 1.7rem; margin-bottom: 20px; color: white; font-weight: 700;
+        .bg-gradient-purple {
+            background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
         }
 
-        .card p { color: var(--text-light); opacity: 0.85; font-size: 1.1rem; }
-
-        /* How It Works Numbers */
-        .step-num {
-            font-size: 5rem; font-weight: 900; opacity: 0.1; position: absolute; top: 0; right: 20px;
-            background: linear-gradient(180deg, white, transparent);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        /* --- Scroll Animation Classes --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+            transition-delay: 0.1s;
         }
 
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+
+        .active {
+            opacity: 1 !important;
+            transform: translate(0, 0) !important;
+        }
+
+        /* Stagger delays */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .custom-message {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        /* Hero Image Overlay */
+        #hero-image-container {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        #hero-image-container img {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        #hero-image-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(10, 10, 12, 0.5) 0%, rgba(10, 10, 12, 0.7) 100%);
+            z-index: 2;
+        }
+
+        .loading-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #7c3aed;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
-<body>
+<body class="bg-[#0a0a0c] text-slate-200 overflow-x-hidden">
 
-    <div class="bg-animation"></div>
-
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">WISDOM</a>
-            <a href="#join" class="nav-cta">Join Waitlist</a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#0a0a0c]/80 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold tracking-tighter text-white">
+                WIZ<span class="text-violet-500">DOM</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium uppercase tracking-widest text-slate-400">
+                <a href="#problem" class="hover:text-white transition-colors">The Gap</a>
+                <a href="#solution" class="hover:text-white transition-colors">Solution</a>
+                <a href="#impact" class="hover:text-white transition-colors">Impact</a>
+            </div>
+            <a href="https://docs.google.com/document/d/1zKZUGFbGqdoXMlD6RB_kdWZ86A9SxyHQBmFpWmUGoSs/edit?usp=sharing" class="bg-violet-600 hover:bg-violet-700 text-white px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">
+                Take the Survey
+            </a>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="container">
-            <div class="hero-brand">WISDOM</div>
-            <h1>Where learning feels less like a task<br>and more like a discovery.</h1>
-            <p>A creative platform for professors to build interactive games and simulations. Turn your curriculum into an experience students never want to leave.</p>
-            
-            <form class="waitlist-form" id="join">
-                <input type="email" class="waitlist-input" placeholder="Enter your email to join the waitlist" required>
-                <button type="submit" class="btn-primary">Join Waitlist</button>
-            </form>
+    <!-- Section 1: Hero -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20">
+        <!-- Dynamic Background Image -->
+        <div id="hero-image-container">
+            <div id="hero-image-placeholder" class="absolute inset-0 flex items-center justify-center">
+                <div class="loading-spinner"></div>
+            </div>
+            <img id="hero-img" src="simulation.png" class="w-full h-full object-cover transition-opacity duration-1000" alt="Education background">
+        </div>
+
+        <!-- Abstract Background Glows (Secondary) -->
+        <div class="absolute inset-0 overflow-hidden -z-10 pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-violet-600/20 blur-[120px] rounded-full"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-fuchsia-600/10 blur-[120px] rounded-full"></div>
+        </div>
+
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="reveal active"> <!-- Hero starts active -->
+                <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-4 text-white uppercase">
+                    WIZDOM
+                </h1>
+                <p class="text-xl md:text-3xl font-light text-slate-300 max-w-3xl mx-auto mb-6">
+                    Where learning feels less like a task and more like a <span class="gradient-text font-semibold italic">discovery</span>.
+                </p>
+                <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    A creative platform for professors to build interactive games and simulations. Turn your curriculum into an experience students never want to leave.
+                </p>
+                
+                <a href="https://docs.google.com/document/d/1zKZUGFbGqdoXMlD6RB_kdWZ86A9SxyHQBmFpWmUGoSs/edit?usp=sharing" button type="submit" class="w-full md:w-auto px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-violet-500/20 whitespace-nowrap">
+                        Tell Us Your Thoughts
+                </a>
+            </div>
         </div>
     </header>
 
-    <section class="problem">
-        <div class="container">
-            <h2 class="section-title">The Engagement Gap</h2>
-            <p>It's getting harder to compete with the digital world for a student's attention. Static lectures often lead to "passive learning," where information goes in one ear and out the other.</p>
-            <p>You have the knowledge; you just need a better way to deliver it.</p>
+    <!-- Section 2: The Problem -->
+    <section id="problem" class="py-24 bg-white/5">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="reveal">
+                    <div class="inline-block px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase mb-4 tracking-widest">
+                        The Challenge
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">The Engagement Gap</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6 text-lg text-slate-300 leading-relaxed reveal-left delay-100">
+                        <p>
+                            It’s getting harder to compete with the digital world for a student's attention. Static lectures often lead to <span class="text-red-400 font-medium">"passive learning,"</span> where information goes in one ear and out the other.
+                        </p>
+                        <p>
+                            You have the knowledge; you just need a better way to deliver it. WIZDOM bridges the distance between your syllabus and their curiosity.
+                        </p>
+                    </div>
+                    <div class="relative glass-card p-8 rounded-3xl border-l-4 border-violet-500 reveal-right delay-200">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center text-red-400">
+                                <i class="fa-solid fa-bolt-lightning text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-xl">Static Fatigue</h3>
+                        </div>
+                        <p class="text-slate-400 italic">"I know the material is fascinating, but seeing my students check their phones five minutes into a lecture is the hardest part of the job."</p>
+                        <div class="mt-4 text-sm font-semibold text-slate-500">— Associate Professor, Biology</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="solution">
-        <div class="container">
-            <h2 class="section-title">Meet WISDOM</h2>
-            <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto 60px; opacity: 0.9;">WISDOM is a creative suite for educators. You don't need to be a game developer or a coder. We provide the "building blocks" for you to create:</p>
+    <!-- Section 3: The Solution -->
+    <section id="solution" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-6xl font-black text-white mb-4">Meet WIZDOM</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+                    A creative suite for educators. No coding. No game dev degree. Just your ideas turned into interactive realities.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Mini-Games -->
+                <div class="glass-card p-10 rounded-3xl group reveal delay-100">
+                    <div class="w-16 h-16 rounded-2xl bg-violet-600/20 flex items-center justify-center text-violet-400 mb-6 group-hover:bg-violet-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-gamepad text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Mini-Games</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Quick challenges designed to test knowledge in real-time. From terminology puzzles to rapid-fire logic chains.
+                    </p>
+                </div>
+
+                <!-- Simulations -->
+                <div class="glass-card p-10 rounded-3xl group reveal delay-200">
+                    <div class="w-16 h-16 rounded-2xl bg-fuchsia-600/20 flex items-center justify-center text-fuchsia-400 mb-6 group-hover:bg-fuchsia-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-vial text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Simulations</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Virtual "sandboxes" where students can test theories, manipulate variables, and see the consequences of their actions safely.
+                    </p>
+                </div>
+
+                <!-- Digital Assets -->
+                <div class="glass-card p-10 rounded-3xl group reveal delay-300">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-600/20 flex items-center justify-center text-emerald-400 mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                        <i class="fa-solid fa-layer-group text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Digital Assets</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Interactive diagrams and clickable stories that turn a dense, 20-page syllabus into an immersive visual journey.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: The Impact -->
+    <section id="impact" class="py-24 bg-[#0d0d0f] border-y border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="md:w-1/2">
+                    <div class="reveal-left">
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">Better Teaching, <br><span class="gradient-text">Better Retention</span></h2>
+                    </div>
+                    
+                    <ul class="space-y-8">
+                        <li class="flex gap-6 reveal-left delay-100">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold">1</div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-2">Deep Focus</h4>
+                                <p class="text-slate-400">When students are "playing" through a concept, they aren't checking their phones. They are engaged in active discovery.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-6 reveal-left delay-200">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold">2</div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-2">Memory That Sticks</h4>
+                                <p class="text-slate-400">A simulation of a biological cell or a market crash is 10x more memorable than a paragraph describing it. Learning by doing is permanent.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-6 reveal-left delay-300">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white text-xs font-bold">3</div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-2">Real-Time Feedback</h4>
+                                <p class="text-slate-400">See exactly where students get stuck within the game logic, allowing you to pivot your lecture to where help is needed most.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 relative reveal-right delay-200">
+                    <div class="animate-float relative z-10 glass-card p-6 rounded-3xl">
+                        <div class="w-full h-80 bg-slate-900 rounded-2xl flex items-center justify-center border border-white/10 overflow-hidden relative">
+                            <!-- Mock Simulation UI -->
+                            <div class="absolute inset-4 border border-violet-500/30 rounded-xl p-4 flex flex-col justify-between">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-xs font-mono text-violet-400">SIMULATION_READY_v2.0</div>
+                                    <div class="flex gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-center gap-4">
+                                    <div class="w-24 h-24 rounded-full border-4 border-dashed border-violet-500 flex items-center justify-center animate-spin-slow" style="animation: spin 10s linear infinite;">
+                                        <i class="fa-solid fa-atom text-4xl text-violet-400"></i>
+                                    </div>
+                                    <div class="text-white font-bold text-center">Interactive Particle Lab<br><span class="text-xs font-normal text-slate-500 italic">Drag to adjust mass...</span></div>
+                                </div>
+                                <div class="bg-violet-600 h-2 rounded-full w-3/4 mx-auto"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Decorative shapes -->
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-fuchsia-600/20 blur-[60px] rounded-full"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-violet-600/20 blur-[60px] rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Workflow -->
+    <section class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">From Idea to Interactive in Minutes</h2>
+                <p class="text-slate-400 text-lg">WIZDOM is designed for busy academics, not technical experts.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 relative">
+                <!-- Connectors for Desktop -->
+                <div class="hidden md:block absolute top-1/2 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-violet-600/0 via-violet-600/30 to-violet-600/0 -z-10"></div>
+                
+                <div class="text-center reveal delay-100">
+                    <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-violet-400 text-3xl font-bold">01</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Pick a Logic</h3>
+                    <p class="text-slate-500">Choose a "game type" like a mystery, strategy map, or a lab environment.</p>
+                </div>
+                <div class="text-center reveal delay-200">
+                    <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-violet-400 text-3xl font-bold">02</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Add Your Facts</h3>
+                    <p class="text-slate-500">Drop in your specific course info, questions, and core theories.</p>
+                </div>
+                <div class="text-center reveal delay-300">
+                    <div class="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-violet-400 text-3xl font-bold">03</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Launch</h3>
+                    <p class="text-slate-500">Send a link to your class. Works instantly on any laptop or phone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: The Closing -->
+    <section id="closing" class="py-24 bg-gradient-purple relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20 pointer-events-none">
+            <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10 reveal">
+            <h2 class="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight">Be Part of the Future</h2>
+            <p class="text-xl text-violet-100 max-w-2xl mx-auto mb-12 leading-relaxed opacity-90">
+                We are currently building the tools that will change how the next generation learns. Join our early-access list to be the first to try WIZDOM when we launch.
+            </p>
             
-            <div class="grid-3">
-                <div class="card">
-                    <h3>Mini-Games</h3>
-                    <p>Quick challenges to test knowledge in real-time.</p>
-                </div>
-                <div class="card">
-                    <h3>Simulations</h3>
-                    <p>Virtual "sandboxes" where students can test theories and see consequences.</p>
-                </div>
-                <div class="card">
-                    <h3>Digital Assets</h3>
-                    <p>Interactive diagrams and clickable stories that turn a syllabus into a journey.</p>
-                </div>
+            <div class="max-w-xl mx-auto glass-card p-10 rounded-3xl bg-white/10 border-white/20">
+                <a href="https://docs.google.com/document/d/1zKZUGFbGqdoXMlD6RB_kdWZ86A9SxyHQBmFpWmUGoSs"  class="w-full px-8 py-5 bg-white text-violet-900 font-extrabold rounded-xl transition-all shadow-xl hover:bg-violet-50 transform hover:scale-[1.02]">
+                        Join the Founding Educators List
+                </a>
+                <p class="text-xs text-violet-200 mt-6 uppercase tracking-widest font-medium">No spam. Only progress.</p>
             </div>
         </div>
     </section>
 
-    <section class="impact">
-        <div class="container">
-            <h2 class="section-title">Better Teaching, Better Retention</h2>
-            <div class="grid-3">
-                <div class="card">
-                    <h3>Deep Focus</h3>
-                    <p>When students are "playing" through a concept, they aren't checking their phones. They are engaged in the discovery.</p>
-                </div>
-                <div class="card">
-                    <h3>Memory That Sticks</h3>
-                    <p>We learn by doing. A simulation of a stock market crash or a biological cell is 10x more memorable than a paragraph describing it.</p>
-                </div>
-                <div class="card">
-                    <h3>Real-Time Feedback</h3>
-                    <p>See exactly where your students are getting stuck within the game, so you can help them where they need it most.</p>
-                </div>
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 bg-[#0a0a0c]">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-xl font-black text-white">WIZ<span class="text-violet-500">DOM</span></div>
+            <div class="text-slate-500 text-sm">© 2024 Wisdom Education Platform. All rights reserved.</div>
+            <div class="flex gap-6 text-slate-400">
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-github"></i></a>
             </div>
         </div>
-    </section>
-
-    <section class="how">
-        <div class="container">
-            <h2 class="section-title">From Idea to Interactive in Minutes</h2>
-            <div class="grid-3">
-                <div class="card">
-                    <span class="step-num">1</span>
-                    <h3>Pick a Logic</h3>
-                    <p>Choose a "game type" (like a mystery, a strategy map, or a lab).</p>
-                </div>
-                <div class="card">
-                    <span class="step-num">2</span>
-                    <h3>Add Your Facts</h3>
-                    <p>Drop in your specific course info and questions.</p>
-                </div>
-                <div class="card">
-                    <span class="step-num">3</span>
-                    <h3>Launch</h3>
-                    <p>Send a link to your class. It works on any laptop or phone.</p>
-                </div>
-            </div>
-        </section>
-
-    <section class="closing">
-        <div class="container">
-            <h2 class="section-title" style="margin-bottom: 30px;">Be Part of the Future</h2>
-            <p style="font-size: 1.5rem; max-width: 800px; margin: 0 auto 50px; opacity: 0.9;">We are currently building the tools that will change how the next generation learns. Join our early-access list to be the first to try WISDOM when we launch.</p>
-            <button class="btn-primary" style="padding: 22px 60px; font-size: 1.2rem;">Join the Founding Educators List</button>
-        </div>
-    </section>
-
-    <footer style="padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); opacity: 0.6;">
-        <p>&copy; 2026 WISDOM. All rights reserved.</p>
     </footer>
 
+   
+
     <script>
-        // Intersection Observer
+        const apiKey = ""; // Environment provided key
+
+        // Image Loading Logic
+        function generateHeroImage() {
+            const placeholder = document.getElementById('hero-image-placeholder');
+            placeholder.style.display = 'none';
+        }
+
+        // Scroll Animation Logic
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('active');
                 }
             });
-        }, { threshold: 0.1 });
+        }, observerOptions);
 
-        document.querySelectorAll('.card, .problem p, .section-title, .hero-brand').forEach(el => {
-            // Apply initial state only if not already animated by CSS keyframes
-            if (!el.classList.contains('hero-brand')) {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'all 0.6s ease-out';
-                observer.observe(el);
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Toast & Form Logic
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'flex';
+            setTimeout(() => {
+                hideToast();
+            }, 5000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'none';
+        }
+
+        const handleForm = (e) => {
+            e.preventDefault();
+            showToast();
+            e.target.reset();
+        };
+
+        document.getElementById('hero-form').addEventListener('submit', handleForm);
+        document.getElementById('footer-form').addEventListener('submit', handleForm);
+
+        // Nav scaling on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.add('py-4');
+                nav.classList.remove('py-2');
             }
         });
 
-        // 3D Tilt Effect
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / 25;
-            const y = (window.innerHeight / 2 - e.pageY) / 25;
-            document.querySelectorAll('.card').forEach(card => {
-                card.style.transform = `perspective(1000px) rotateY(${x * 0.05}deg) rotateX(${y * 0.05}deg)`;
-            });
-        });
+        // Initial load
+        window.onload = () => {
+            generateHeroImage();
+        };
     </script>
 </body>
 </html>
